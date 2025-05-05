@@ -38,6 +38,10 @@ List<Map> skillItems = [
     'img': 'assets/images/github.png',
   },
   {
+    'title': 'GitLab',
+    'img': 'assets/images/gitlab_img.png',
+  },
+  {
     'title': 'Bloc',
     'img': 'assets/images/pluginIcon.png',
   },

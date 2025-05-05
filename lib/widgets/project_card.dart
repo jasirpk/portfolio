@@ -1,8 +1,9 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:reactable/reactable.dart';
 import 'package:web_portfolio/utils/project_utils.dart';
-import 'package:web_portfolio/widgets/simple_shadow.dart';
 import '../constants/colors.dart';
 import 'dart:js' as js;
 
