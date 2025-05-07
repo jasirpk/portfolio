@@ -37,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       duration: const Duration(milliseconds: 800),
     )..repeat(reverse: true);
 
-    bounceAnimation = Tween<double>(begin: 0.0, end: -10.0)
+    bounceAnimation = Tween<double>(begin: 0.0, end: -40.0)
         .chain(CurveTween(curve: Curves.easeInOut))
         .animate(animationController);
   }
@@ -130,6 +130,8 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                 offset: Offset(0, bounceAnimation.value),
                 child: FloatingActionButton(
                   onPressed: () => scrollToSection(0),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.horizontal(left: Radius.circular(6),right: Radius.circular(6))),
+                  mini: isDesktop ? false : true,
                   child: Transform.rotate(
                     angle: -math.pi / 2, // Point upwards
                     child: const Icon(Icons.send),

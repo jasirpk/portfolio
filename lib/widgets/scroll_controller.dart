@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class SlowScrollPhysics extends ClampingScrollPhysics {
   final double speedFactor;
 
-  const SlowScrollPhysics({this.speedFactor = 0.3, ScrollPhysics? parent}) : super(parent: parent);
+  const SlowScrollPhysics({this.speedFactor = 0.5, ScrollPhysics? parent}) : super(parent: parent);
 
   @override
   SlowScrollPhysics applyTo(ScrollPhysics? ancestor) {

@@ -1,10 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 import '../constants/colors.dart';
 import '../constants/skill_items.dart';
 
-class SkillsMobile extends StatelessWidget {
+class SkillsMobile extends StatefulWidget {
   const SkillsMobile({super.key});
+
+  @override
+  State<SkillsMobile> createState() => _SkillsMobileState();
+}
+
+class _SkillsMobileState extends State<SkillsMobile> {
+  late List<bool> isHovering;
+  @override
+  void initState() {
+    isHovering = List.filled(skillItems.length, false);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,25 +55,37 @@ class SkillsMobile extends StatelessWidget {
 
           // skills
           Wrap(
-            spacing: 10.0,
-            runSpacing: 10.0,
-            alignment: WrapAlignment.center,
-            children: [
-              for (int i = 0; i < skillItems.length; i++)
-                Chip(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 12.0,
-                    horizontal: 16.0,
-                  ),
-                  backgroundColor: CustomColor.bgLight2,
-                  label: Text(
-                    skillItems[i]["title"],
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  avatar: Image.asset(skillItems[i]["img"]),
-                ),
-            ],
-          )
+              spacing: 10.0,
+              runSpacing: 10.0,
+              alignment: WrapAlignment.center,
+              children: List.generate(skillItems.length, (i) {
+                return FocusableActionDetector(
+                    mouseCursor: SystemMouseCursors.click,
+                    onShowHoverHighlight: (hovering) {
+                      setState(() {
+                        isHovering[i] = hovering;
+                      });
+                    },
+                    child: Animate(
+                      target: isHovering[i] ? 1 : 0,
+                    ).custom(builder: (_, value, __) {
+                      return Chip(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 12.0,
+                          horizontal: 16.0,
+                        ),
+                        backgroundColor: CustomColor.bgLight2,
+                        label: Text(
+                          skillItems[i]["title"],
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        avatar: Image.asset(skillItems[i]["img"]),
+                      ).animate(target: isHovering[i] ? 1 : 0).flip(
+                          end: -0.15,
+                          alignment: Alignment.center,
+                          duration: 0.2.seconds);
+                    }));
+              }))
         ],
       ),
     );

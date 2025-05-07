@@ -88,9 +88,9 @@ class _SkillsDesktopState extends State<SkillsDesktop> {
                         style: const TextStyle(color: Colors.white),
                       ),
                       avatar: Image.asset(skillItems[i]["img"]!),
-                    ).animate(target: isHovering[i] ? 1 : 0).flip(
+                    ).animate(target: isHovering[i] ? 1 : 0).fade(
                         end: -0.15,
-                        alignment: Alignment.bottomCenter,
+                        // alignment: Alignment.bottomCenter,
                         duration: 0.2.seconds);
                   }),
                 );
