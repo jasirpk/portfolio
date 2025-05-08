@@ -90,7 +90,7 @@ class _SkillsDesktopState extends State<SkillsDesktop> {
                       avatar: Image.asset(skillItems[i]["img"]!),
                     ).animate(target: isHovering[i] ? 1 : 0).fade(
                         end: -0.15,
-                        // alignment: Alignment.bottomCenter,
+                        
                         duration: 0.2.seconds);
                   }),
                 );

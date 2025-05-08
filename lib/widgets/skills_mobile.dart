@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:reactable/reactable.dart';
 
 import '../constants/colors.dart';
 import '../constants/skill_items.dart';
@@ -55,37 +56,43 @@ class _SkillsMobileState extends State<SkillsMobile> {
 
           // skills
           Wrap(
-              spacing: 10.0,
-              runSpacing: 10.0,
-              alignment: WrapAlignment.center,
-              children: List.generate(skillItems.length, (i) {
-                return FocusableActionDetector(
-                    mouseCursor: SystemMouseCursors.click,
-                    onShowHoverHighlight: (hovering) {
-                      setState(() {
-                        isHovering[i] = hovering;
-                      });
-                    },
-                    child: Animate(
-                      target: isHovering[i] ? 1 : 0,
-                    ).custom(builder: (_, value, __) {
-                      return Chip(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 12.0,
-                          horizontal: 16.0,
-                        ),
-                        backgroundColor: CustomColor.bgLight2,
-                        label: Text(
-                          skillItems[i]["title"],
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        avatar: Image.asset(skillItems[i]["img"]),
-                      ).animate(target: isHovering[i] ? 1 : 0).flip(
-                          end: -0.15,
-                          alignment: Alignment.center,
-                          duration: 0.2.seconds);
-                    }));
-              }))
+  spacing: 10.0,
+  runSpacing: 10.0,
+  alignment: WrapAlignment.center,
+  children: List.generate(skillItems.length, (i) {
+    return GestureDetector(
+      onTapDown: (_) => setState(() => isHovering[i] = true),
+      onTapUp: (_) => setState(() => isHovering[i] = false),
+      onTapCancel: () => setState(() => isHovering[i] = false),
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click,
+        onEnter: (_) => setState(() => isHovering[i] = true),
+        onExit: (_) => setState(() => isHovering[i] = false),
+        child: Animate(
+          target: isHovering[i] ? 1 : 0,
+        ).custom(builder: (_, value, __) {
+          return Chip(
+            padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
+            backgroundColor: CustomColor.bgLight2,
+            label: Text(
+              skillItems[i]["title"],
+              style: const TextStyle(color: Colors.white),
+            ),
+            avatar: CircleAvatar(
+              radius: 16,
+              backgroundImage: AssetImage(skillItems[i]["img"]),
+            ),
+          ).animate(target: isHovering[i] ? 1 : 0).flip(
+            end: -0.25,
+            alignment: Alignment.bottomCenter,
+            duration: 0.2.seconds,
+          );
+        }),
+      ),
+    );
+  }),
+)
+
         ],
       ),
     );
